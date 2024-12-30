@@ -6,9 +6,7 @@ import { ProductTile } from './ProductTile'
 
 import { useProductsQuery } from '../apis/products.generated'
 
-import { useEvent } from '@/hooks'
-import { MinifiedProduct, ProductStatus } from '@/types'
-import { CATALOGUE_PAGE_SIZE } from '@/utils/constants'
+import { Product, ProductStatus } from '@/types'
 
 type CatalogueProps = {
   categoryIds?: Array<string>
@@ -16,30 +14,19 @@ type CatalogueProps = {
 
 export const Catalogue: FC<CatalogueProps> = ({ categoryIds }) => {
   const [pageNumber, setPageNumber] = useState(0)
-  const [products, setProducts] = useState<
-    Array<Omit<MinifiedProduct, 'id' | 'quantity' | 'status'>>
-  >([])
+  const [products, setProducts] = useState<Array<Product>>([])
   const [hasMore, setHasMore] = useState<boolean>(true)
   const [totalPages, setTotalPages] = useState<number>(0)
   const [searchText, setSearchText] = useState<string>('')
 
-  const onSearchInput = (text: string) => {
-    setSearchText(text)
-    setPageNumber(0)
-    setProducts([])
-  }
-
-  useEvent('onSearchInputChange', onSearchInput)
-
   const { data, loading, fetchMore } = useProductsQuery({
     variables: {
       productFilter: {
-        categoryIds,
         statuses: [ProductStatus.Published],
         text: searchText,
       },
       pageNumber,
-      pageSize: CATALOGUE_PAGE_SIZE,
+      pageSize: 8,
     },
     fetchPolicy: 'network-only',
   })
@@ -90,7 +77,7 @@ export const Catalogue: FC<CatalogueProps> = ({ categoryIds }) => {
           }}
           gap={6}
         >
-          {Array.from({ length: CATALOGUE_PAGE_SIZE + 4 }).map((_, index) => (
+          {Array.from({ length: 8 + 4 }).map((_, index) => (
             <ProductSkeletonTile key={index} />
           ))}
         </Grid>
@@ -124,7 +111,7 @@ export const Catalogue: FC<CatalogueProps> = ({ categoryIds }) => {
           }}
           gap={6}
         >
-          {Array.from({ length: CATALOGUE_PAGE_SIZE }).map((_, index) => (
+          {Array.from({ length: 8 }).map((_, index) => (
             <ProductSkeletonTile key={index} />
           ))}
         </Grid>

@@ -4,16 +4,15 @@ import { motion } from 'framer-motion'
 import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { MinifiedProduct } from '@/types'
-import { INR_CURRENCY_SYMBOL } from '@/utils/constants'
+import { Product } from '@/types'
 
 type ProductTileProps = {
-  product: Omit<MinifiedProduct, 'id' | 'quantity' | 'status'>
+  product: Product
 }
 
 export const ProductTile: FC<ProductTileProps> = ({ product }) => {
   const navigate = useNavigate()
-  const { imageUrls, price, productId, title, isOutOfStock } = product
+  const { medias, price, productId, title } = product
 
   const hoverAnimation = {
     scale: 1.05,
@@ -34,7 +33,7 @@ export const ProductTile: FC<ProductTileProps> = ({ product }) => {
     >
       <Flex flexDir="column" borderRadius={2} display-name="product-tile-flex">
         <Image
-          src={imageUrls[0]}
+          src={medias[0]}
           alt={title}
           borderRadius="4px"
           borderBottomRadius={0}
@@ -43,35 +42,6 @@ export const ProductTile: FC<ProductTileProps> = ({ product }) => {
           aspectRatio="3/4"
           style={{ transition: 'transform 0.3s ease-in-out' }}
         />
-        {isOutOfStock && (
-          <Flex
-            position="absolute"
-            top="0"
-            left="0"
-            w="100%"
-            h="100%"
-            bg="rgba(0, 0, 0, 0.6)"
-            alignItems="center"
-            justifyContent="center"
-            borderRadius="12px"
-            zIndex="1"
-          >
-            <Text
-              color="white"
-              fontSize="xl"
-              fontWeight="bold"
-              textTransform="uppercase"
-              textAlign="center"
-              bg="rgba(255, 0, 0, 0.8)"
-              px="10px"
-              py="5px"
-              borderRadius="8px"
-              boxShadow="0 4px 8px rgba(0, 0, 0, 0.2)"
-            >
-              Out of Stock
-            </Text>
-          </Flex>
-        )}
         <Flex
           flexDir="column"
           p="15px"
@@ -108,7 +78,7 @@ export const ProductTile: FC<ProductTileProps> = ({ product }) => {
                 transition: 'color 0.3s',
               }}
             >
-              {INR_CURRENCY_SYMBOL} {price.toFixed(2)}
+              Rs. {price.toFixed(2)}
             </Text>
           </Flex>
         </Flex>

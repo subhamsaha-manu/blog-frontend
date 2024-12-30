@@ -1,36 +1,35 @@
-import { ApolloProvider } from '@apollo/client'
-import { ChakraProvider } from '@chakra-ui/react'
-import { NextUIProvider } from '@nextui-org/react'
-import { FC, ReactNode, Suspense } from 'react'
-import { ErrorBoundary } from 'react-error-boundary'
-import { BrowserRouter } from 'react-router-dom'
+import {ApolloProvider} from '@apollo/client'
+import {ChakraProvider} from '@chakra-ui/react'
+import {NextUIProvider} from '@nextui-org/react'
+import {FC, ReactNode, Suspense} from 'react'
+import {ErrorBoundary} from 'react-error-boundary'
+import {BrowserRouter} from 'react-router-dom'
 
-import { getClient } from '@/apollo/client'
-import { SpinnerContainer } from '@/components/elements/Spinner'
-import { ErrorFallback } from '@/components/Layout'
-import { CategoriesContextProvider } from '@/context'
+import {getClient} from '@/apollo/client'
+import {SpinnerContainer} from '@/components/elements/Spinner'
+import {ErrorFallback} from '@/components/Layout'
 import theme from '@/utils/theme'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 type AppProviderProps = {
-  children: ReactNode
+    children: ReactNode
 }
 
-export const AppProvider: FC<AppProviderProps> = ({ children }) => {
-  return (
-    <NextUIProvider>
-      <ChakraProvider theme={theme}>
-        <Suspense fallback={<SpinnerContainer height="60vh" />}>
-          <ErrorBoundary fallback={<ErrorFallback />}>
-            <BrowserRouter basename="/">
-              <ApolloProvider client={getClient()}>
-                <CategoriesContextProvider>{children}</CategoriesContextProvider>
-              </ApolloProvider>
-            </BrowserRouter>
-          </ErrorBoundary>
-        </Suspense>
-      </ChakraProvider>
-    </NextUIProvider>
-  )
+export const AppProvider: FC<AppProviderProps> = ({children}) => {
+    return (
+        <NextUIProvider>
+            <ChakraProvider theme={theme}>
+                <Suspense fallback={<SpinnerContainer height="60vh"/>}>
+                    <ErrorBoundary fallback={<ErrorFallback/>}>
+                        <BrowserRouter basename="/">
+                            <ApolloProvider client={getClient()}>
+                                {children}
+                            </ApolloProvider>
+                        </BrowserRouter>
+                    </ErrorBoundary>
+                </Suspense>
+            </ChakraProvider>
+        </NextUIProvider>
+    )
 }

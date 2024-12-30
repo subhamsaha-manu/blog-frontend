@@ -17,7 +17,7 @@ module.exports = {
       webpackConfig.output = {
         ...webpackConfig.output,
         ...{
-          filename: whenDev(() => 'static/js/bundle.js', 'vesa-frontend.js'),
+          filename: whenDev(() => 'static/js/bundle.js', 'blog-frontend.js'),
           path: path.join(__dirname, '/build'),
         },
       }

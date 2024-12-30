@@ -1,268 +1,20 @@
 type Query {
     products(productFilter: ProductFilter!, pageNumber: Int!, pageSize: Int!): ProductsResponse!
-    product(productId: ID!): Product!
-    category(categoryId: ID!): Category!
-    categories(categoryFilter: CategoryFilter!): [Category!]!
-    userCart: [CartItem!]!
-    userWishlist: [MinifiedProduct!]!
-    users: [User!]!
-    shippingAddresses: [ShippingAddress!]!
-    shippingAddress(addressId: ID!): ShippingAddress!
-    userOrderHistory: [MinifiedOrder!]!
-    userDetail: User!
-    userAddressesMinified: [MinifiedShippingAddress!]!
-    orderDetails(orderId: ID!): Order!
-    orders(pageNumber: Int!, pageSize: Int!):OrdersResponse!
 }
 
 type Mutation {
-    register(registerUserInput: RegisterUserInput!): ID!
     addProduct(addProductInput: AddProductInput!): Boolean!
-    addProducts(addProductsInput: [AddProductInput!]!): Boolean!
-    addCategory(addCategoriesInput: AddCategoryInput!): Boolean!
-    addCategories(addCategoriesInput: [AddCategoryInput!]!): Boolean!
-    addProductToCart(productId: ID!): Boolean!
-    removeProductFromCart(productId: ID!, removeAll: Boolean): Boolean!
-    addProductToWishlist(productId: ID!): Boolean!
-    removeProductFromWishlist(productId: ID!): Boolean!
-    emptyCart: Boolean!
-    placeOrder(placeOrderInput: PlaceOrderInput!): Boolean!
-    contactUs(name: String!, email: String!, phoneNumber: String!): Boolean!
-    addShippingAddress(addUpdateShippingAddressInput: AddUpdateShippingAddressInput!): Boolean!
-    updateShippingAddress(addressId: ID!, addUpdateShippingAddressInput: AddUpdateShippingAddressInput!): Boolean!
-    removeShippingAddress(addressId: ID!): Boolean!
-    requestOtp(sendTo:String!, contactMethod: AuthByType!): Boolean!
-    verifyOtp(sendTo:String!, contactMethod: AuthByType!, otp: String!): VerifyOtpResponse!
-    updateOrderStatus(orderId: ID!, status: OrderStatus!): Boolean!
-    updateProduct(productId: ID!, updateProductInput: UpdateProductInput!): Boolean!
-    updateCategory(categoryId: ID!, updateCategoryInput: UpdateCategoryInput!): Boolean!
-    generatePresignedUrls(generatePresignedUrlsInput: GeneratePresignedUrlsInput!): PresignedUrlsResponse!
 }
 
 input ProductFilter {
     ids: [ID!]
-    categoryIds: [ID!]
     text: String
     statuses: [ProductStatus!]!
 }
 
-type Product {
-    id: ID!
-    productId: ID!
-    title: String!
-    price: Float!
-    medias: [Media!]!
-    thumbnailUrl: String!
-    description: String!
-    categoryIds: [ID!]!
-    quantity: Int!
-    isOutOfStock: Boolean!
-    status: ProductStatus!
-}
-
-type Media {
-    url: String!
-    uuid: ID!
-}
-
-type MinifiedProduct {
-    id: ID!
-    productId: ID!
-    title: String!
-    price: Float!
-    imageUrls: [String!]!
-    thumbnailUrl: String!
-    quantity: Int!
-    isOutOfStock: Boolean!
-    status: ProductStatus!
-}
-
-input RegisterUserInput {
-    name: String!
-    email: String!
-    phoneNumber: String!
-    userRole: UserRole
-}
-
-input AddProductInput {
-    productId: ID!
-    title: String!
-    description: String!
-    price: Float!
-    categoryIds: [ID!]!
-    mediaFiles: [MediaFileInput!]!
-    thumbnailFileType: String!
-    quantity: Int!
-    status: ProductStatus!
-}
-
-type Category {
-    categoryId: ID!
-    name: String!
-    description: String!
-    imageUrl: String!
-    status: CategoryStatus!
-}
-
-input AddCategoryInput {
-    categoryId: ID!
-    name: String!
-    description: String!
-    imageUrlType: String!
-    status: CategoryStatus!
-}
-
-type CartItem {
-    productId: ID!
-    title: String!
-    price: Float!
-    imageUrl: String!
-    quantity: Int!
-}
-
-enum UserRole {
-    ADMIN
-    USER
-}
-
-type User {
-    userId: ID!
-    name: String!
-    email: String
-    phoneNumber: String
-    isAdmin: Boolean!
-}
-
-input PlaceOrderInput {
-    email: String!
-    phoneNumber: String!
-    name: String!
-    addressLine1: String!
-    addressLine2: String
-    city: String!
-    state: String!
-    country: String!
-    pincode: String!
-    orderItems: [OrderItemInput!]!
-    modeOfPayment: ModeOfPayment!
-}
-
-input OrderItemInput {
-    productId: ID!
-    quantity: Int!
-    price: Float!
-}
-
-enum ModeOfPayment {
-    CREDIT_CARD,
-    DEBIT_CARD,
-    NET_BANKING,
-    UPI,
-    COD
-}
-
-type  Order {
-    orderId: ID!
-    name: String!
-    email: String!
-    phone: String!
-    addressLine1: String!
-    addressLine2: String
-    city: String!
-    state: String!
-    country: String!
-    pincode: String!
-    orderItems: [OrderItem!]!
-    modeOfPayment: ModeOfPayment!
-    orderDate: String!
-    orderStatus: OrderStatus!
-    orderTotal: Float!
-}
-
-type OrderItem {
-    productId: ID!
-    title: String!
-    price: Float!
-    imageUrl: String!
-    quantity: Int!
-}
-
-enum OrderStatus {
-    PENDING,
-    CONFIRMED,
-    SHIPPED,
-    DELIVERED,
-    CANCELLED
-}
-
-input AddUpdateShippingAddressInput {
-    name: String!
-    addressLine1: String!
-    addressLine2: String
-    city: String!
-    state: String!
-    country: String!
-    pincode: String!
-    addressType: AddressType!
-    isDefault: Boolean!
-}
-
-enum AddressType {
-    HOME
-    WORK
-    OTHER
-}
-
-type ShippingAddress {
-    addressId: ID!
-    name: String!
-    addressLine1: String!
-    addressLine2: String
-    city: String!
-    state: String!
-    country: String!
-    pincode: String!
-    addressType: AddressType!
-    isDefault: Boolean!
-}
-
-type MinifiedOrder {
-    orderId: ID!
-    orderDate: String!
-    orderStatus: OrderStatus!
-    orderTotal: Float!
-}
-
-type MinifiedShippingAddress {
-    addressId: ID!
-    name: String!
-    isDefault: Boolean!
-}
-
-enum AuthByType {
-    EMAIL
-    PHONE
-}
-
-type VerifyOtpResponse {
-    isVerified: Boolean!
-    userId: ID
-    token: String
-}
-
-type OrdersResponse {
-    orders: [MinifiedReceivedOrder!]!
+type ProductsResponse {
+    products: [Product!]!
     pageInfo: PageInfo!
-}
-
-type MinifiedReceivedOrder {
-    orderId: ID!
-    name: String!
-    orderDate: String!
-    dateModified: String!
-    orderStatus: OrderStatus!
-    orderTotal: Float!
-    modeOfPayment: ModeOfPayment!
 }
 
 type PageInfo {
@@ -272,69 +24,29 @@ type PageInfo {
     totalElements: Int!
 }
 
-input UpdateProductInput {
-    title: String
-    description: String
-    price: Float
-    categoryIds: [ID!]!
-    mediaFiles: [MediaFileInput!]!
-    thumbnailFileType: String
-    quantity: Int
-    status: ProductStatus
-    deletedMediaFiles: [MediaFileInput!]
-}
-
-input MediaFileInput {
-    fileType: String!
-    uuid: ID!
-}
-
-type ProductsResponse {
-    products: [MinifiedProduct!]!
-    pageInfo: PageInfo!
-}
-
-input GeneratePresignedUrlsInput {
-    generateUrlFor: GenerateUrlFor!
+type Product {
     id: ID!
-    mediaFileTypes: [String!]!
-    thumbnailFileType: String
-}
-
-type PresignedUrlsResponse {
-    mediaUrls: [String!]!
-    thumbnailUrl: String!
-}
-
-enum GenerateUrlFor {
-    PRODUCT
-    CATEGORY
+    productId: ID!
+    title: String!
+    description: String!
+    price: Float!
+    medias: [String!]!
+    status: ProductStatus!
 }
 
 enum ProductStatus {
-    ALL
     PUBLISHED
     DRAFT
     INACTIVE
 }
 
-enum CategoryStatus {
-    PUBLISHED
-    DRAFT
-    INACTIVE
-}
-
-input UpdateCategoryInput {
-    name: String
-    description: String
-    mediaFileType: String
-    status: CategoryStatus
-}
-
-input CategoryFilter {
-    ids: [ID!]
-    text: String
-    statuses: [CategoryStatus!]!
+input AddProductInput {
+    productId: ID!
+    title: String!
+    description: String!
+    price: Float!
+    medias: [String!]!
+    status: ProductStatus!
 }
 
 schema {

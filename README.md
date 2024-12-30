@@ -1,4 +1,4 @@
-# vesa-frontend
+# blog-frontend
 
 To run the project locally:
 
