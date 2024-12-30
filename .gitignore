@@ -32,3 +32,4 @@ yarn-error.log*
 types.ts
 storybook-static/
 blog-frontend.iml
+*.env
