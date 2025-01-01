@@ -1,7 +1,7 @@
 import {ApolloClient, createHttpLink, InMemoryCache} from '@apollo/client'
 import {setContext} from '@apollo/client/link/context'
 
-const url = process.env.REACT_APP_BLOG_BACKEND_DEVELOPMENT_URL
+const url = 'http://localhost:8080'
 
 const httpLink = createHttpLink({
     uri: `${url}/graphql`,

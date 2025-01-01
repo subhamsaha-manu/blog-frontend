@@ -1,0 +1,90 @@
+.
+├── README.md
+├── blog-frontend.iml
+├── codegen.yml
+├── craco.config.js
+├── eslint.config.mjs
+├── jest.config.js
+├── package-lock.json
+├── package.json
+├── public
+│   ├── _redirects
+│   └── index.html
+├── schema.graphql
+├── sonar-project.properties
+├── src
+│   ├── App.tsx
+│   ├── apollo
+│   │   ├── client.ts
+│   │   └── linkError.ts
+│   ├── assets
+│   │   ├── illustrations
+│   │   │   └── SomethingWentWrong.png
+│   │   └── images
+│   │       ├── human.jpg
+│   │       └── quotation-mark.png
+│   ├── components
+│   │   ├── Layout
+│   │   │   ├── ErrorFallback.tsx
+│   │   │   ├── MainLayout.tsx
+│   │   │   ├── ScrollToTop.tsx
+│   │   │   └── index.ts
+│   │   └── elements
+│   │       └── Spinner
+│   │           ├── SpinnerContainer.tsx
+│   │           └── index.ts
+│   ├── factories
+│   │   └── products.ts
+│   ├── features
+│   │   ├── Header
+│   │   │   ├── components
+│   │   │   │   ├── LandingPageHeader.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── index.ts
+│   │   │   └── utils
+│   │   │       ├── getInitials.ts
+│   │   │       └── index.ts
+│   │   ├── dashboard
+│   │   │   ├── apis
+│   │   │   ├── components
+│   │   │   │   ├── Dashboard.tsx
+│   │   │   │   └── index.ts
+│   │   │   └── index.ts
+│   │   └── product
+│   │       ├── __tests__
+│   │       │   └── product.test.ts
+│   │       ├── catalogue
+│   │       │   ├── apis
+│   │       │   │   ├── products.generated.tsx
+│   │       │   │   └── products.ts
+│   │       │   ├── components
+│   │       │   │   ├── Catalogue.tsx
+│   │       │   │   ├── ProductSkeletonTile.tsx
+│   │       │   │   ├── ProductTile.tsx
+│   │       │   │   └── index.ts
+│   │       │   └── index.ts
+│   │       └── index.ts
+│   ├── index.css
+│   ├── index.tsx
+│   ├── providers
+│   │   └── app.tsx
+│   ├── react-app-env.d.ts
+│   ├── routes
+│   │   └── index.tsx
+│   ├── setupTests.ts
+│   ├── test
+│   │   ├── createDefaultProps.ts
+│   │   └── createMocks.ts
+│   ├── tools
+│   │   └── fileMock.js
+│   ├── types.ts
+│   └── utils
+│       ├── lazyImport.ts
+│       └── theme.ts
+├── structure.txt
+├── tailwind.config.js
+├── tsconfig.json
+├── tsconfig.paths.json
+└── webpack.config.js
+
+29 directories, 59 files
